@@ -11,13 +11,22 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/proximax-storage/go-xpx-utils"
+	utils "github.com/proximax-storage/go-xpx-utils"
 )
 
 // PrepareForScalarMultiply precomputes the encoded group elements
-func PrepareForScalarMultiply(key *PrivateKey) *Ed25519EncodedFieldElement {
+func PrepareForScalarMultiply(key *PrivateKey, derivationScheme DerivationScheme) *Ed25519EncodedFieldElement {
 
-	hash, err := HashesSha3_512(key.Raw)
+	var hash []byte
+	var err error
+	switch derivationScheme {
+	case Ed25519Sha2:
+		hash, err = HashesSha_512(key.Raw)
+		break
+	case Ed25519Sha3:
+		hash, err = HashesSha3_512(key.Raw)
+		break
+	}
 	if err != nil {
 		fmt.Println(err)
 	}

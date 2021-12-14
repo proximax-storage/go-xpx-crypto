@@ -10,6 +10,7 @@ import "errors"
 type KeyPair struct {
 	*PrivateKey
 	*PublicKey
+	CryptoEngine
 }
 
 // NewRandomKeyPair creates a random key pair.
@@ -31,7 +32,7 @@ func NewKeyPair(privateKey *PrivateKey, publicKey *PublicKey, engine CryptoEngin
 	} else if !engine.CreateKeyAnalyzer().IsKeyCompressed(publicKey) {
 		return nil, errors.New("publicKey must be in compressed form")
 	}
-	return &KeyPair{privateKey, publicKey}, nil
+	return &KeyPair{privateKey, publicKey, engine}, nil
 }
 
 // NewKeyPairByEngine creates a random key pair that is compatible with the specified engine.
