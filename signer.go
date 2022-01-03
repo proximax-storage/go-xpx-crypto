@@ -17,7 +17,8 @@ func NewSigner(signer DsaSigner) *Signer {
 // NewSignerFromKeyPair creates a signer around a KeyPair.
 func NewSignerFromKeyPair(keyPair *KeyPair, engine CryptoEngine) *Signer {
 	if engine == nil {
-		engine = CryptoEngines.DefaultEngine
+		//Use KeyPair associated crypto engine
+		engine = keyPair.CryptoEngine
 	}
 	return NewSigner(engine.CreateDsaSigner(keyPair))
 }
