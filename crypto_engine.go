@@ -8,8 +8,8 @@ package crypto
 type DerivationScheme uint32
 
 const (
-	Ed25519Sha2 DerivationScheme = iota
 	Ed25519Sha3 DerivationScheme = iota
+	Ed25519Sha2 DerivationScheme = iota
 )
 
 // CryptoEngine represents a cryptographic engine that is a factory of crypto-providers.
