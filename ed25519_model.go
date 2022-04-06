@@ -456,6 +456,7 @@ func Sign(keyPair *KeyPair, mess []byte, derivationScheme DerivationScheme) (*Si
 	var err error
 	var hash []byte
 	var hashR []byte
+	var hashH []byte
 	// r = H(hash_b,...,hash_2b-1, data) where b=256.
 	switch derivationScheme {
 	case Ed25519Sha2:
@@ -496,10 +497,16 @@ func Sign(keyPair *KeyPair, mess []byte, derivationScheme DerivationScheme) (*Si
 	// S = (r + H(encodedR, encodedA, data) * a) mod group order where
 	// encodedR and encodedA are the little endian encodings of the group element R and the public key A and
 	// a is the lower 32 bytes of hash after clamping.
-	hashH, err := HashesSha3_512(
-		encodedR.Raw,
-		keyPair.PublicKey.Raw,
-		mess)
+	switch derivationScheme {
+	case Ed25519Sha2:
+		hashH, err = HashesSha_512(encodedR.Raw,
+			keyPair.PublicKey.Raw,
+			mess)
+	case Ed25519Sha3:
+		hashH, err = HashesSha3_512(encodedR.Raw,
+			keyPair.PublicKey.Raw,
+			mess)
+	}
 	if err != nil {
 		return nil, err
 	}
