@@ -22,10 +22,8 @@ func PrepareForScalarMultiply(key *PrivateKey, derivationScheme DerivationScheme
 	switch derivationScheme {
 	case Ed25519Sha2:
 		hash, err = HashesSha_512(key.Raw)
-		break
 	case Ed25519Sha3:
 		hash, err = HashesSha3_512(key.Raw)
-		break
 	}
 	if err != nil {
 		fmt.Println(err)

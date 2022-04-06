@@ -8,6 +8,7 @@ package crypto
 type DerivationScheme uint32
 
 const (
+	Unset       DerivationScheme = iota
 	Ed25519Sha3 DerivationScheme = iota
 	Ed25519Sha2 DerivationScheme = iota
 )
