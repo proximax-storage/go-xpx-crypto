@@ -116,7 +116,13 @@ func GetSharedKeyHkdf(privateKey *PrivateKey, publicKey *PublicKey, salt []byte,
 	if err != nil {
 		return nil, err
 	}
-	hash := sha256.New
+	var hash func() hash.Hash
+	switch derivationScheme {
+	case Ed25519Sha2:
+		hash = sha256.New
+	default:
+		hash = sha3.New256
+	}
 
 	// Non-secret salt, optional (can be nil).
 	// Recommended: hash-length random value.
