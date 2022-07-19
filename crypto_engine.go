@@ -5,7 +5,7 @@
 package crypto
 
 // Represents a key derivation scheme associated with a given crypto engine
-type DerivationScheme uint32
+type DerivationScheme uint8
 
 const (
 	Unset       DerivationScheme = iota
