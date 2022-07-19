@@ -651,12 +651,12 @@ type Ed25519Sha2BlockCipher struct {
 }
 
 // NewEd25519BlockCipher return Ed25519BlockCipher
-func NewEd25519Sha2BlockCipher(senderKeyPair *KeyPair, recipientKeyPair *KeyPair, seed io.Reader) *Ed25519Sha3BlockCipher {
+func NewEd25519Sha2BlockCipher(senderKeyPair *KeyPair, recipientKeyPair *KeyPair, seed io.Reader) *Ed25519Sha2BlockCipher {
 	if seed == nil {
 		seed = rand.Reader
 	}
 
-	ref := Ed25519Sha3BlockCipher{
+	ref := Ed25519Sha2BlockCipher{
 		senderKeyPair,
 		recipientKeyPair,
 		len(recipientKeyPair.PublicKey.Raw),
