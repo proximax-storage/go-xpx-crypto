@@ -5,8 +5,9 @@
 package crypto
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMathUtils_AddGroupElements_Neutral(t *testing.T) {
@@ -25,7 +26,7 @@ func TestMathUtils_AddGroupElements_Neutral(t *testing.T) {
 	}
 }
 
-//Simple test for verifying that the MathUtils code works as expected.
+// Simple test for verifying that the MathUtils code works as expected.
 func TestMathUtilsWorkAsExpected(t *testing.T) {
 
 	for i := 0; i < numIter; i++ {

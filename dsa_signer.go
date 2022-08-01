@@ -4,9 +4,8 @@
 
 package crypto
 
-//DsaSigner Interface that supports signing and verification of arbitrarily sized message.
+// DsaSigner Interface that supports signing and verification of arbitrarily sized message.
 type DsaSigner interface {
-
 	// Signs the SHA3 hash of an arbitrarily sized message.
 	Sign(mess []byte) (*Signature, error)
 	// Verifies that the signature is valid.

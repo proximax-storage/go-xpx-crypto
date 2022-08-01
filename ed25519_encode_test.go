@@ -6,11 +6,12 @@ package crypto
 
 import (
 	"fmt"
-	"github.com/proximax-storage/go-xpx-utils"
-	"github.com/stretchr/testify/assert"
 	"math/big"
 	"runtime"
 	"testing"
+
+	"github.com/proximax-storage/go-xpx-utils"
+	"github.com/stretchr/testify/assert"
 )
 
 const numIter = 1000
@@ -281,7 +282,7 @@ func TestEncodeReturnsCorrectByteArray(t *testing.T) {
 
 		var test FieldElements
 		for j := uint(0); j < 10; j++ {
-			//random.nextInt(1 << 28) - (1 << 27);
+			// random.nextInt(1 << 28) - (1 << 27);
 			test[j] = MathUtils.GetRandomInt64() - (1 << 27)
 		}
 
@@ -395,7 +396,7 @@ func TestSqrtReturnsCorrectResult(t *testing.T) {
 	}
 }
 
-//end region
+// end region
 // region Ed25519GroupElementTest
 func TestCanBeCreatedWithP2Coordinates(t *testing.T) {
 
@@ -520,7 +521,7 @@ func TestEncodeReturnsExpectedResult(t *testing.T) {
 
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestToP2ThrowsIfGroupElementHasPrecompRepresentation(t *testing.T) {
 
 	defer func() {
@@ -535,7 +536,7 @@ func TestToP2ThrowsIfGroupElementHasPrecompRepresentation(t *testing.T) {
 	g.toP2()
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestToP2ThrowsIfGroupElementHasCachedRepresentation(t *testing.T) { /* public  */
 	defer func() {
 		err := recover()
@@ -609,7 +610,7 @@ func testRecover(t *testing.T) {
 	}
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestToCachedThrowsIfGroupElementHasP2Representation(t *testing.T) {
 
 	defer testRecover(t)
@@ -632,7 +633,7 @@ func TestToCachedThrowsIfGroupElementHasPrecompRepresentation(t *testing.T) {
 	g.toCached()
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestToCachedThrowsIfGroupElementHasP1P1Representation(t *testing.T) {
 
 	defer func() {
@@ -917,7 +918,7 @@ func TestEd25519EncodedGroupElement_CanBeCreatedFromByteArray(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestEd25519EncodedGroupElement_CannotBeCreatedFromArrayWithIncorrectLength(t *testing.T) {
 
 	_, err := NewEd25519EncodedGroupElement(make([]byte, 30))
@@ -980,7 +981,7 @@ func Test_GetAffineXReturnsExpectedResult(t *testing.T) {
 
 }
 
-//(expected = IllegalArgumentException.class)
+// (expected = IllegalArgumentException.class)
 func TestGetAffineXThrowsIfEncodedGroupElementIsInvalid(t *testing.T) {
 
 	g := NewEd25519GroupElementP2(Ed25519FieldOne(), &Ed25519Field.D, Ed25519FieldOne()) // Ed25519GroupElement

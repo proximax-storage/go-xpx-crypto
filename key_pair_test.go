@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-//region basic construction
+// region basic construction
 func TestNewRandomKeyPair_HasPrivateKey(t *testing.T) {
 
 	kp, err := NewRandomKeyPair()
@@ -72,7 +72,7 @@ func TestNewKeyPair(t *testing.T) {
 	}
 }
 
-//endregion
+// endregion
 func TestNewRandomKeyPair(t *testing.T) {
 
 	kp1, err := NewRandomKeyPair()

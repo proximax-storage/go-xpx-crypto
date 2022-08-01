@@ -6,10 +6,11 @@ package crypto
 
 import (
 	"encoding/hex"
-	"github.com/pkg/errors"
-	"github.com/proximax-storage/go-xpx-utils"
 	"math/big"
 	"strings"
+
+	"github.com/pkg/errors"
+	"github.com/proximax-storage/go-xpx-utils"
 )
 
 var ErrInvalidSizePrivateKey = errors.New("the length of private key is not 32")

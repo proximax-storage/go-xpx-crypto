@@ -10,14 +10,15 @@ import "errors"
 type KeyPair struct {
 	*PrivateKey
 	*PublicKey
+	CryptoEngine
 }
 
-//NewRandomKeyPair creates a random key pair.
+// NewRandomKeyPair creates a random key pair.
 func NewRandomKeyPair() (*KeyPair, error) {
 	return NewKeyPairByEngine(CryptoEngines.DefaultEngine)
 }
 
-//NewKeyPair The public key is calculated from the private key.
+// NewKeyPair The public key is calculated from the private key.
 //  The private key must by nil
 // if crypto engine is nil - default Engine
 func NewKeyPair(privateKey *PrivateKey, publicKey *PublicKey, engine CryptoEngine) (*KeyPair, error) {
@@ -31,15 +32,15 @@ func NewKeyPair(privateKey *PrivateKey, publicKey *PublicKey, engine CryptoEngin
 	} else if !engine.CreateKeyAnalyzer().IsKeyCompressed(publicKey) {
 		return nil, errors.New("publicKey must be in compressed form")
 	}
-	return &KeyPair{privateKey, publicKey}, nil
+	return &KeyPair{privateKey, publicKey, engine}, nil
 }
 
-//NewKeyPairByEngine creates a random key pair that is compatible with the specified engine.
+// NewKeyPairByEngine creates a random key pair that is compatible with the specified engine.
 func NewKeyPairByEngine(engine CryptoEngine) (*KeyPair, error) {
 	return engine.CreateKeyGenerator().GenerateKeyPair()
 }
 
-//HasPrivateKey Determines if the current key pair has a private key.
+// HasPrivateKey Determines if the current key pair has a private key.
 func (ref *KeyPair) HasPrivateKey() bool {
 
 	return ref.PrivateKey != nil

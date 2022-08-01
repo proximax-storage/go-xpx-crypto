@@ -6,8 +6,9 @@ package crypto
 
 import (
 	"encoding/hex"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var testPrivatKeyHex = "2275227522752275227522752275227522752275227522752275227522752275"

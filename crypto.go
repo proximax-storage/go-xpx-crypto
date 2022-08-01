@@ -6,7 +6,10 @@ package crypto
 
 import (
 	"crypto/sha256"
+	"crypto/sha512"
 	"crypto/subtle"
+	"encoding/hex"
+
 	"golang.org/x/crypto/ripemd160"
 	"golang.org/x/crypto/sha3"
 )
@@ -39,6 +42,20 @@ func HashesSha3_256(b []byte) ([]byte, error) {
 	_, err := hash.Write(b)
 	if err != nil {
 		return nil, err
+	}
+
+	return hash.Sum(nil), nil
+}
+
+// HashesSha_512 return sha 512 hash of byte
+func HashesSha_512(inputs ...[]byte) ([]byte, error) {
+	hash := sha512.New()
+	for _, b := range inputs {
+
+		_, err := hash.Write(b)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return hash.Sum(nil), nil
@@ -87,4 +104,29 @@ func isConstantTimeByteEq(b, c int) int {
 
 func isEqualConstantTime(x, y []byte) bool {
 	return subtle.ConstantTimeCompare(x, y) == 1
+}
+
+func EncodeMessageEd25519(senderPrivateKey *PrivateKey, recipientPublicKey *PublicKey, message string) (string, error) {
+
+	sender, _ := NewKeyPair(senderPrivateKey, nil, nil)
+	recipient, _ := NewKeyPair(nil, recipientPublicKey, nil)
+	cipher := NewEd25519Sha2BlockCipher(sender, recipient, nil)
+	payload := []byte(message)
+	plainText, err := cipher.EncryptGCM(payload)
+	if err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(plainText), nil
+}
+
+func DecodeMessageEd25519(recipientPrivateKey *PrivateKey, senderPublicKey *PublicKey, payload []byte) (string, error) {
+
+	recipient, _ := NewKeyPair(recipientPrivateKey, nil, nil)
+	sender, _ := NewKeyPair(nil, senderPublicKey, nil)
+	cipher := NewEd25519Sha2BlockCipher(sender, recipient, nil)
+	plainText, err := cipher.DecryptGCM(payload)
+	if err != nil {
+		return "", err
+	}
+	return string(plainText), nil
 }

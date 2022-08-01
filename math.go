@@ -8,9 +8,10 @@ import (
 	rand2 "crypto/rand"
 	"encoding/binary"
 	"errors"
-	"github.com/proximax-storage/go-xpx-utils"
 	"io"
 	"math/big"
+
+	"github.com/proximax-storage/go-xpx-utils"
 )
 
 func bigIntegerZERO() *big.Int {
@@ -21,7 +22,7 @@ func bigIntegerONE() *big.Int {
 	return big.NewInt(1)
 }
 
-//MathUtils Utility class to help with calculations.
+// MathUtils Utility class to help with calculations.
 type mathUtils struct {
 	EXPONENTS []uint
 	D         *big.Int
@@ -37,19 +38,19 @@ func (ref *mathUtils) random() (random [32]byte) {
 	return
 }
 
-//* Converts a 2^8 bit representation to a BigInteger.
-//* Value: bytes[0] + 2^8 * bytes[1] + ...
-//*
-//* @param bytes The 2^8 bit representation.
-//* @return The BigInteger.
+// * Converts a 2^8 bit representation to a BigInteger.
+// * Value: bytes[0] + 2^8 * bytes[1] + ...
+// *
+// * @param bytes The 2^8 bit representation.
+// * @return The BigInteger.
 func (ref *mathUtils) BytesToBigInteger(bytes []byte) *big.Int {
 
-	//return utils.BytesToBigInteger(bytes)
+	// return utils.BytesToBigInteger(bytes)
 	b := bigIntegerZERO()
 	for i, val := range bytes {
 		el := (&big.Int{}).SetUint64(uint64(uint8(val)) & 0xff)
-		//one := bigIntegerONE()
-		//one = one.Mul(one, el)
+		// one := bigIntegerONE()
+		// one = one.Mul(one, el)
 		b = b.Add(b, el.Lsh(el, uint(i*8)))
 	}
 
@@ -286,7 +287,7 @@ func (ref *mathUtils) ToRepresentation(g *Ed25519GroupElement, newCoorSys Coordi
 
 		return ref.getNeeCoor(x, y, newCoorSys)
 	case PRECOMPUTED:
-		//safaty gX for next calculation
+		// safaty gX for next calculation
 		x := (&big.Int{}).Sub(gX, gY)
 		x = x.Mul(x, gZ.Mul(gZ, big.NewInt(2))).ModInverse(x, Ed25519Field.P).Mod(x, Ed25519Field.P)
 
@@ -327,7 +328,7 @@ func (ref *mathUtils) getNeeCoor(x, y *big.Int, newCoorSys CoordinateSystem) (*E
 		m = m.Sub(y, x)
 		y1 := ref.ToFieldElement(m.Mod(m, Ed25519Field.P))
 
-		//safaty D for next calculation
+		// safaty D for next calculation
 		m = (&big.Int{}).Mul(ref.D, big.NewInt(2))
 		t := ref.ToFieldElement(m.Mul(m, x).Mul(m, y).Mod(m, Ed25519Field.P))
 

@@ -6,9 +6,8 @@ package crypto
 
 import "math/big"
 
-//Curve  Interface for getting information for a curve.
+// Curve  Interface for getting information for a curve.
 type Curve interface {
-
 	/**
 	 * Gets the name of the curve.
 	 *

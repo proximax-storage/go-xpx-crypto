@@ -5,10 +5,11 @@
 package crypto
 
 import (
-	"github.com/stretchr/testify/assert"
 	"math/big"
 	"strconv"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const (
